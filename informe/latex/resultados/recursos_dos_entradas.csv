@@ -1,0 +1,11 @@
+gate,method,qubits,cx,depth,gates,output_permutation
+AND,Toffoli,3,5,11,14,"[0, 1, 2]"
+AND,QFT,3,9,19,29,"[0, 1, 2]"
+NAND,Toffoli,3,5,11,14,"[0, 1, 2]"
+NAND,QFT,3,9,19,29,"[0, 1, 2]"
+OR,Toffoli,3,5,11,16,"[0, 1, 2]"
+OR,QFT,3,9,19,29,"[0, 1, 2]"
+NOR,Toffoli,3,5,11,16,"[0, 1, 2]"
+NOR,QFT,3,9,19,29,"[0, 1, 2]"
+XOR,Toffoli,3,5,11,14,"[1, 0, 2]"
+XOR,QFT,3,9,19,29,"[1, 0, 2]"
