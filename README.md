@@ -11,6 +11,8 @@ Integrantes: Brayan Vladymir Molocho Condori (164244), Haider Alex Carpio Hermoz
 
 ## Archivos de entrega
 
+- [Monografía del grupo 2](informe/monografia/monografia.pdf), [fuente LaTeX y compilación](informe/monografia/README.md), siguiendo el modelo de la primera entrega.
+
 - [Artículo PDF](informe/avance_circuitos_reversibles.pdf).
 - [ZIP para importar en Overleaf](informe/avance_overleaf.zip).
 - [Fuente LaTeX](informe/latex/main.tex) y [bibliografía](informe/latex/referencias.bib).

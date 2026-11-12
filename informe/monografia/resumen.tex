@@ -1,0 +1,14 @@
+La implementación cuántica de funciones booleanas exige preservar la información
+mediante transformaciones reversibles. Este avance integra una revisión dirigida
+de cuatro trabajos de 2024--2026 con una implementación reproducible en Qiskit.
+Se construyen AND, NAND, OR, NOR y XOR a partir de un semisumador, usando una
+realización con Toffoli y otra con la transformada cuántica de Fourier (QFT).
+Las dos familias se verifican con 40 casos de tablas de verdad y con la comparación
+de sus operadores completos. Además, se validan \ValidationCases{} casos de
+conteo de población y AND con 2, 4 y 8 entradas, y se compilan circuitos de hasta
+16 entradas. Todas las validaciones ideales satisfacen una tolerancia de
+$10^{-10}$. Para 16 entradas, el conteo mediante QFT emplea 20 qubits frente a
+31 de la escalera de Toffoli, pero requiere 175 compuertas CX frente a 90.
+Los resultados evidencian un compromiso entre ancho, compuertas y profundidad;
+la simulación ideal realizada no permite concluir superioridad en hardware.
+
