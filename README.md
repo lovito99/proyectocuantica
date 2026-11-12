@@ -18,7 +18,7 @@ Integrantes: Brayan Vladymir Molocho Condori (164244), Haider Alex Carpio Hermoz
 - [Fuente LaTeX](informe/latex/main.tex) y [bibliografía](informe/latex/referencias.bib).
 - [Código Qiskit](proyecto/experimento.py) y [pruebas](tests/test_experimento.py).
 - [Datos, métricas y figuras](informe/latex/resultados/).
-- [Diapositivas en PDF](ppt/diapositivas.pdf) y [fuente Beamer](ppt/diapositivas.tex).
+- [Diapositivas en PDF](ppt/diapositivas.pdf), [PowerPoint](ppt/diapositivas.pptx) y [fuente Beamer](ppt/diapositivas.tex).
 
 Los dos PDF proporcionados se mantienen en `informe/`. La revisión es dirigida,
 basada en esos cuatro antecedentes; los resultados de simulación se generan
@@ -156,7 +156,7 @@ En Overleaf: **New Project → Upload Project → avance_overleaf.zip**. Selecci
 ## Diapositivas de la exposición
 
 La carpeta [`ppt/`](ppt/) contiene la presentación completa en PDF, con formato
-panorámico 16:9: **25 diapositivas principales y 6 de apoyo** para una exposición
+panorámico 16:9: **25 diapositivas en total, incluidas las referencias** para una exposición
 de aproximadamente 20 minutos. Incluye fundamentos, los cuatro artículos,
 metodología, circuitos, código Qiskit, validación, recursos, limitaciones y conclusiones.
 

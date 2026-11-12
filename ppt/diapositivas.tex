@@ -1,5 +1,5 @@
 % Presentación del avance semestral. Compilar desde la raíz: make presentacion
-\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[aspectratio=169,12pt]{beamer}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish,es-tabla]{babel}
@@ -26,6 +26,7 @@
 \setbeamerfont{footline}{size=\tiny}
 \setbeamersize{text margin left=8mm,text margin right=8mm}
 \setbeamertemplate{navigation symbols}{}
+\setbeamerfont{normal text}{size=\normalsize}
 \setbeamertemplate{itemize item}{\color{vino}\small$\blacktriangleright$}
 \setbeamertemplate{itemize subitem}{\color{azul}$\bullet$}
 \setbeamertemplate{headline}{%
@@ -37,8 +38,8 @@
   \usebeamerfont{footline}IF460AIN · CIRCUITOS REVERSIBLES · 2026-II\hfill
   \insertframenumber\,/\,\inserttotalframenumber
   \end{beamercolorbox}}
-\setbeamertemplate{frametitle}{\vspace{1mm}\insertframetitle\par\vspace{1mm}
-  {\color{vino!25}\hrule height .5pt}\vspace{2mm}}
+\setbeamertemplate{frametitle}{\vspace{0mm}\insertframetitle\par
+  {\color{vino!25}\hrule height .5pt}\vspace{0mm}}
 \hypersetup{pdftitle={Circuitos cuánticos reversibles: presentación del proyecto},
   pdfauthor={Brayan Vladymir Molocho Condori; Haider Alex Carpio Hermoza; Efraín Vitorino Marín},
   colorlinks=true,urlcolor=azul,linkcolor=azul}
@@ -62,6 +63,9 @@
 \institute{Escuela Profesional de Ingeniería Informática y de Sistemas · UNSAAC}
 \date{Noviembre de 2026}
 
+\addtobeamertemplate{block begin}{\setlength{\parskip}{1pt}}{}
+\addtobeamertemplate{itemize/enumerate body begin}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}{}
+\AtBeginDocument{\setlength{\abovedisplayskip}{3pt}\setlength{\belowdisplayskip}{3pt}\setlength{\abovedisplayshortskip}{2pt}\setlength{\belowdisplayshortskip}{2pt}}
 \begin{document}
 \section{Proyecto y fundamentos}
 
@@ -110,55 +114,29 @@ Efraín Vitorino Marín & 160337
 \end{frame}
 
 % 02
-\begin{frame}{La pregunta que guía el proyecto}
+\begin{frame}{Pregunta, problema y objetivos}
+
 \begin{alertblock}{Pregunta de investigación}
-¿Cómo cambian los recursos al implementar funciones booleanas reversibles
-con QFT en lugar de una construcción basada en Toffoli?
+¿Cómo cambian los recursos de funciones booleanas reversibles con QFT frente a Toffoli?
 \end{alertblock}
-\vspace{2mm}
 \begin{columns}[T,onlytextwidth]
 \column{.48\textwidth}
-\begin{block}{Recorrido de la exposición}
-\begin{enumerate}
-\item Fundamentos y cuatro antecedentes.
-\item Diseño e implementación en Qiskit.
-\item Validación, recursos y limitaciones.
-\end{enumerate}
-\end{block}
+\textbf{Problema:} AND pierde información:
+$00,01,10\mapsto0$; $11\mapsto1$.
+Una evolución cerrada exige $U^\dagger U=I$.
+\smallskip\par
+\textbf{Objetivo:} implementar y comparar QFT y Toffoli; analizar cuatro antecedentes, validar cinco funciones, medir qubits/CX/profundidad y entregar código reproducible.
 \column{.48\textwidth}
 \dato{20 frente a 31}{qubits para AND de 16 entradas}
-\centering\small QFT frente a escalera de Toffoli.\par
-\medskip\textbf{El ahorro de qubits exige evaluar también CX y profundidad.}
+Compilar $N=16$ no implica validarlo exhaustivamente.
+\smallskip\par
+\textbf{Recorrido:} fundamentos y antecedentes; diseño Qiskit; validación, recursos y limitaciones.
 \end{columns}
-\fuente{Resultados propios: informe/latex/resultados/escalamiento.csv. Para 16 entradas se realiza compilación.}
+\fuente{Nielsen y Chuang (2010); escalamiento.csv. El ahorro de qubits exige evaluar también CX y profundidad.}
 \end{frame}
 
 % 03
-\begin{frame}{Problema y objetivos}
-\begin{columns}[T,onlytextwidth]
-\column{.46\textwidth}
-\begin{block}{Una AND clásica pierde información}
-\[
-00,\;01,\;10\longmapsto 0,\qquad 11\longmapsto1.
-\]
-La salida no permite recuperar la entrada.
-\end{block}
-\begin{alertblock}{Condición cuántica}
-Una evolución cerrada debe ser unitaria y reversible: $U^\dagger U=I$.
-\end{alertblock}
-\column{.5\textwidth}
-\textbf{Objetivo general}\par\smallskip
-Implementar y comparar circuitos reversibles mediante QFT y Toffoli.
-\medskip
-\begin{itemize}
-\item Mantener y analizar los cuatro antecedentes.
-\item Validar cinco funciones booleanas.
-\item Medir qubits, CX y profundidad.
-\item Entregar código y resultados reproducibles.
-\end{itemize}
-\end{columns}
-\fuente{Fundamentos: Nielsen y Chuang (2010). Alcance: avance sobre circuitos reversibles.}
-\end{frame}
+
 
 % 04
 \begin{frame}{Fundamentos: estados, amplitudes y unitariedad}
@@ -197,9 +175,10 @@ una unitaria transforma amplitudes complejas y conserva sus fases.
 \end{frame}
 
 % 05
-\begin{frame}{Las compuertas que utiliza la implementación}
+\begin{frame}[shrink=0]{Las compuertas que utiliza la implementación}
+\small
 \begin{columns}[T,onlytextwidth]
-\column{.43\textwidth}
+\column{.46\textwidth}
 \begin{block}{Operaciones de un qubit}
 \small
 \[
@@ -208,7 +187,7 @@ H=\frac1{\sqrt2}\begin{pmatrix}1&1\\1&-1\end{pmatrix}.
 \]
 \small $X$ invierte un bit; $H$ permite preparar superposición.
 \end{block}
-\column{.53\textwidth}
+\column{.51\textwidth}
 \begin{block}{Operaciones controladas}
 \begin{align*}
 \mathrm{CNOT}:\;&(a,b)\mapsto(a,b\oplus a),\\
@@ -251,114 +230,54 @@ y un qubit de control.}
 
 \section{Cuatro antecedentes}
 % 07
-\begin{frame}{Antecedente 1: una plantilla lógica basada en QFT}
-\textbf{Kaltehei, Kurt, Gençten y Çakmak (2026)}\par
-\smallskip\small
+\begin{frame}{Antecedentes 1 y 2: arquitectura y composición}
+
 \begin{columns}[T,onlytextwidth]
-\column{.48\textwidth}
-\begin{block}{Propuesta}
-\begin{itemize}
-\item Semisumador con QFT y QFT inversa.
-\item AND, NAND, OR, NOR y XOR mediante $X$ y SWAP.
-\item Extensión a conteo de población.
-\end{itemize}
+\column{.49\textwidth}
+\begin{block}{1. Kaltehei et al. (2026)}
+Semisumador QFT/QFT inversa; AND, NAND, OR, NOR y XOR con $X$/SWAP; extensión a conteo de población.
+\smallskip\par
+Evaluar ancho, auxiliares, CX y profundidad: reducir qubits puede aumentar interacciones.
 \end{block}
-\column{.48\textwidth}
-\begin{block}{Qué se debe evaluar}
-\begin{itemize}
-\item Ancho del circuito y auxiliares.
-\item Cantidad de CX y profundidad.
-\item Compromiso entre qubits e interacciones.
-\end{itemize}
+Arquitectura principal adoptada; las métricas son propias.
+\column{.49\textwidth}
+\begin{block}{2. Escanez-Exposito y Caballero-Gil (2026)}
+QuantumSolver Composer: circuitos digitales, sumadores, bloques lógicos y criptografía.
+\smallskip\par
+Modularidad y valor didáctico no implican costo mínimo. No reproducimos sus cifradores.
 \end{block}
+Separar construcción, verificación y exportación facilita reproducir.
 \end{columns}
-\idea{Es el antecedente principal de la arquitectura implementada.
-Las métricas de esta presentación se calculan con nuestro código.}
-\fuente{[1] Quantum Engineering (2026), art. 9882453. \href{https://doi.org/10.1155/que2/9882453}{DOI: 10.1155/que2/9882453}.}
+\fuente{[1] Quantum Engineering, 9882453; DOI: 10.1155/que2/9882453. [2] Logic J. IGPL 34(1), jzaf019; DOI: 10.1093/jigpal/jzaf019.}
 \end{frame}
 
 % 08
-\begin{frame}{Antecedente 2: composición modular con Qiskit}
-\textbf{Escanez-Exposito y Caballero-Gil (2026)}\par
-\smallskip\small
-\begin{columns}[T,onlytextwidth]
-\column{.48\textwidth}
-\begin{block}{QuantumSolver Composer}
-\begin{itemize}
-\item Composición de circuitos digitales.
-\item Sumadores y otros bloques lógicos.
-\item Aplicación a esquemas criptográficos.
-\end{itemize}
-\end{block}
-\column{.48\textwidth}
-\begin{block}{Aporte y límite}
-\begin{itemize}
-\item Organización modular y valor didáctico.
-\item Una construcción funcional no implica costo mínimo.
-\item Los cifradores del artículo no se reproducen en este avance.
-\end{itemize}
-\end{block}
-\end{columns}
-\idea{Separar construcción, verificación y exportación facilita comprender
-y reproducir los circuitos.}
-\fuente{[2] Logic Journal of the IGPL, 34(1), jzaf019. \href{https://doi.org/10.1093/jigpal/jzaf019}{DOI: 10.1093/jigpal/jzaf019}.}
-\end{frame}
+
 
 % 09
-\begin{frame}{Antecedente 3: síntesis LUT y fases relativas}
-\textbf{Clarino, Asada, Matsuo y Yamashita (2025)}\par
-\smallskip\small
+\begin{frame}{Antecedentes 3 y 4: síntesis y minimización}
+
 \begin{columns}[T,onlytextwidth]
-\column{.48\textwidth}
-\begin{block}{Propuesta}
-\begin{itemize}
-\item Descomposiciones de Shannon y Davio.
-\item Funciones con fases relativas.
-\item Cancelación en pares de cómputo y descomputación.
-\end{itemize}
+\column{.49\textwidth}
+\begin{block}{3. Clarino et al. (2025)}
+Síntesis LUT con Shannon/Davio y fases relativas; cancelación en pares de cómputo/descomputación para reducir puertas $T$.
+\smallskip\par
+La mejora depende de la red; las fases afectan entradas coherentes.
 \end{block}
-\column{.48\textwidth}
-\begin{block}{Métrica y condición}
-\begin{itemize}
-\item Reducir el conteo de puertas $T$.
-\item La mejora depende de la estructura de la red.
-\item Las fases importan para entradas coherentes.
-\end{itemize}
+La tabla de verdad no detecta fases: comparamos operadores completos.
+\column{.49\textwidth}
+\begin{block}{4. Hajjdiab et al. (2024)}
+Q-Map: técnica visual y álgebra booleana para construir circuitos compactos.
+\smallskip\par
+Medir compuertas y auxiliares juntos; los ejemplos no prueban optimalidad general.
 \end{block}
+Complementa la aritmética; implementamos semisumadores, no Q-Map.
 \end{columns}
-\idea{La tabla de verdad no detecta fases relativas.
-El proyecto compara operadores completos.}
-\fuente{[3] IEICE Trans. Inf. Syst., E108-D(4), pp. 320--329.
-\href{https://doi.org/10.1587/transinf.2024EDP7194}{DOI: 10.1587/transinf.2024EDP7194}.}
+\fuente{[3] IEICE E108-D(4), 320--329; DOI: 10.1587/transinf.2024EDP7194. [4] Physica Scripta 99(8), 085127; DOI: 10.1088/1402-4896/ad5c17.}
 \end{frame}
 
 % 10
-\begin{frame}{Antecedente 4: minimización visual con Q-Map}
-\textbf{Hajjdiab, Khalil y Eleuch (2024)}\par
-\smallskip\small
-\begin{columns}[T,onlytextwidth]
-\column{.48\textwidth}
-\begin{block}{Propuesta}
-\begin{itemize}
-\item Técnica visual para realizar funciones booleanas.
-\item Uso de relaciones de álgebra booleana.
-\item Búsqueda de circuitos compactos.
-\end{itemize}
-\end{block}
-\column{.48\textwidth}
-\begin{block}{Lectura crítica}
-\begin{itemize}
-\item Complementa las plantillas aritméticas.
-\item Compuertas y auxiliares deben medirse juntos.
-\item Los ejemplos no prueban optimalidad general.
-\end{itemize}
-\end{block}
-\end{columns}
-\idea{Q-Map aporta un enfoque visual; este avance implementa
-la familia de semisumadores.}
-\fuente{[4] Physica Scripta, 99(8), 085127.
-\href{https://doi.org/10.1088/1402-4896/ad5c17}{DOI: 10.1088/1402-4896/ad5c17}.}
-\end{frame}
+
 
 % 11
 \begin{frame}{Qué aporta cada enfoque a la comparación}
@@ -378,7 +297,7 @@ Hajjdiab et al. & Minimización visual & Compuertas y auxiliares & Comparar bajo
 
 \section{Diseño e implementación}
 % 12
-\begin{frame}{Metodología del experimento propio}
+\begin{frame}[shrink=0]{Metodología del experimento propio}
 \small
 \begin{columns}[T,onlytextwidth]
 \column{.32\textwidth}
@@ -406,7 +325,7 @@ Hajjdiab et al. & Minimización visual & Compuertas y auxiliares & Comparar bajo
 \end{itemize}
 \end{block}
 \end{columns}
-\medskip
+\smallskip
 \idea{Simulación ideal en CPU. Se validan exhaustivamente $N=2,4,8$;
 para $N=16$ se construye y compila.}
 \fuente{Implementación: proyecto/experimento.py. Datos generados localmente a partir de entradas binarias.}
@@ -440,9 +359,9 @@ $a$ & $b$ & Suma & Acarreo & Conteo\\\midrule
 1&0&1&0&1\\
 1&1&0&1&2\\\bottomrule
 \end{tabular}
-\medskip\small
+\smallskip\small
 Qiskit imprime cadenas como $q_2q_1q_0$.\par
-\medskip\textbf{La salida lógica de la familia se ubicará siempre en $q_1$.}
+\smallskip\textbf{La salida lógica de la familia se ubicará siempre en $q_1$.}
 \end{columns}
 \fuente{La transformación es reversible también para $c=1$; la interpretación de semisumador usa $c=0$.}
 \end{frame}
@@ -457,14 +376,14 @@ Qiskit imprime cadenas como $q_2q_1q_0$.\par
 \centering\textbf{Toffoli seguida de CNOT}\par\smallskip
 \includegraphics[width=\linewidth,height=3.6cm,keepaspectratio]{semisumador_toffoli.png}
 \end{columns}
-\medskip
+\smallskip
 \idea{Se compara la transformación completa de los ocho estados de la base,
 incluidos los que tienen el auxiliar inicial en uno.}
 \fuente{Diagramas generados por Qiskit antes de la compilación.}
 \end{frame}
 
 % 15
-\begin{frame}{Cómo se obtienen las cinco funciones booleanas}
+\begin{frame}[shrink=0]{Cómo se obtienen las cinco funciones booleanas}
 \setlength{\tabcolsep}{4pt}
 \begin{columns}[T,onlytextwidth]
 \column{.57\textwidth}
@@ -489,7 +408,7 @@ $a$&$b$&\rotatebox{60}{AND}&\rotatebox{60}{NAND}&\rotatebox{60}{OR}&\rotatebox{6
 1&1&1&0&1&0&0\\\bottomrule
 \end{tabular}
 \end{columns}
-\medskip
+\smallskip
 \idea{Las mismas operaciones de preparación y salida se aplican a ambos diseños.
 Las líneas restantes conservan información residual.}
 \fuente{Función logic\_gate() en proyecto/experimento.py. OR y NOR se construyen con las leyes de De Morgan.}
@@ -524,7 +443,7 @@ qc.append(QFTGate(2).inverse(), [0, 1])
 \end{frame}
 
 % 17
-\begin{frame}{Escalamiento: contador QFT frente a escalera AND}
+\begin{frame}[shrink=0]{Escalamiento: contador QFT frente a escalera AND}
 \begin{columns}[T,onlytextwidth]
 \column{.48\textwidth}
 \begin{block}{Contador QFT: $N=2^k$ entradas}
@@ -550,31 +469,34 @@ qc.append(QFTGate(2).inverse(), [0, 1])
 \end{frame}
 
 % 18
-\begin{frame}{Validar bits no basta: también hay que validar fases}
+\begin{frame}[shrink=0]{Validación de bits, fases y resultados}
+\small
+
 \begin{columns}[T,onlytextwidth]
-\column{.48\textwidth}
-\begin{block}{Entradas clásicas: 592 casos}
-\textbf{Tablas de verdad:} $5\times4\times2=40$.\par
-\smallskip
-\small Cinco funciones, cuatro entradas y dos diseños.
-\medskip\par
-\normalsize\textbf{Multientrada:}\par
-$2(4+16+256)=\ValidationCases{}$.\par
-\smallskip
-\small Conteo completo para QFT y AND para la escalera.
-\end{block}
-\column{.48\textwidth}
-\begin{block}{Comparación de operadores de tres qubits}
+\column{.50\textwidth}
+\textbf{592 casos y 12 pruebas automatizadas}
+\begin{itemize}
+\item $5\times4\times2=40$ casos: cinco funciones, cuatro entradas y dos diseños.
+\item $2(4+16+256)=\ValidationCases{}$ casos multientrada.
+\end{itemize}
+\centering\small
+\begin{tabular}{@{}rlrr@{}}\toprule
+$N$ & Diseño & Casos & $P_{\min}$\\\midrule
+\ValidationRows\bottomrule
+\end{tabular}
+\column{.47\textwidth}
+\textbf{Operadores completos de tres qubits}
 \[
 \varepsilon=\max_{ij}|(U_{\rm QFT}-U_{\rm Toffoli})_{ij}|.
 \]
-Verificamos $U^\dagger U=I$ y cada operador compilado con el original.
-\medskip
-\textbf{Tolerancia: $10^{-10}$.}
-\end{block}
-\small Incluye las fases de los ocho estados.
+Unitariedad $U^\dagger U=I$ y comparación compilado/original: incluye fases de los ocho estados.
+\smallskip\par
+Tolerancia: $10^{-10}$. Error máximo: \texttt{\MaxUnitaryError{}}.
+\smallskip\par
+$P_{\min}$ de tablas: \MinTruthProbability{}.
+QFT verifica peso de Hamming completo; Toffoli verifica AND.
 \end{columns}
-\fuente{Simulación con Statevector y verificación con Operator; tests/test\_experimento.py.}
+\fuente{Statevector y Operator; metricas.json, validacion.csv y tests. Probabilidades a seis decimales: diferencias numéricas de redondeo. Se valida el modelo ideal; la fidelidad QPU exige experimentos físicos.}
 \end{frame}
 
 % 19
@@ -609,23 +531,7 @@ el etiquetado lógico. Se registra ese mapeo y se verifica con
 
 \section{Resultados propios}
 % 20
-\begin{frame}{Resultados de corrección: todas las verificaciones pasan}
-\begin{columns}[T,onlytextwidth]
-\column{.31\textwidth}\dato{40}{casos de tablas de verdad}
-\column{.34\textwidth}\dato{\ValidationCases{}}{casos de escalamiento}
-\column{.31\textwidth}\dato{12}{pruebas automatizadas}
-\end{columns}
-\begin{block}{Resultados de los operadores}
-\begin{itemize}
-\item Error máximo entre parejas y versiones compiladas: \texttt{\MaxUnitaryError{}}.
-\item Unitariedad y equivalencia por debajo de la tolerancia $10^{-10}$.
-\item Probabilidad mínima de las tablas, redondeada: \MinTruthProbability{}.
-\end{itemize}
-\end{block}
-\small\textbf{Interpretación:} se valida el modelo ideal.
-La fidelidad de una QPU requiere experimentos físicos.
-\fuente{metricas.json; resultados.tex; tablas\_verdad.csv; validacion.csv.}
-\end{frame}
+
 
 % 21
 \begin{frame}{Entradas en superposición: suma de dos bits uniformes}
@@ -634,7 +540,7 @@ La fidelidad de una QPU requiere experimentos físicos.
 \includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{superposicion.png}
 \column{.32\textwidth}
 Se aplica $H$ a $q_0$ y $q_2$, seguido del semisumador QFT.
-\medskip
+\smallskip
 \begin{align*}
 P(00)&=1/4,\\
 P(01)&=1/2,\\
@@ -647,38 +553,26 @@ P(10)&=1/4.
 \end{frame}
 
 % 22
-\begin{frame}{Recursos compilados para AND multientrada}
+\begin{frame}{Recursos AND: tablas y crecimiento con N}
+
 \begin{columns}[c,onlytextwidth]
-\column{.55\textwidth}
-\centering\small\renewcommand{\arraystretch}{1.16}
-\begin{tabular}{@{}rlrrr@{}}
-\toprule
+\column{.43\textwidth}
+\centering\small
+\begin{tabular}{@{}rlrrr@{}}\toprule
 $N$ & Diseño & Qubits & CX & Prof.\\\midrule
-\ScalingRows
-\bottomrule
+\ScalingRows\bottomrule
 \end{tabular}
-\column{.41\textwidth}
-\begin{alertblock}{Caso de 16 entradas}
-\textbf{Qubits:} 20 frente a 31.\par
-Reducción de 11 qubits: $35.5\%$.
-\medskip
-\textbf{CX:} 175 frente a 90.\par
-\textbf{Profundidad:} 118 frente a 95.
-\end{alertblock}
-\small Para $N=16$ se reporta compilación; la validación exhaustiva llega a $N=8$.
+\column{.55\textwidth}
+\includegraphics[width=\linewidth]{comparacion_recursos.png}
+\textbf{$N=16$:} 20 frente a 31 qubits (11 menos: $35.5\%$); CX 175/90; profundidad 118/95.
 \end{columns}
-\fuente{Resultados propios de escalamiento.csv. QFT devuelve además el conteo de población.}
+\smallskip
+QFT reduce ancho para $N\geq4$ y devuelve además el conteo de población. La escalera usa menos CX y profundidad.
+\fuente{escalamiento.csv; base y conectividad comunes. N=16 solo compilado, validación exhaustiva hasta N=8. Las curvas no representan tiempos ni fidelidades de hardware.}
 \end{frame}
 
 % 23
-\begin{frame}{El compromiso de recursos se aprecia al crecer N}
-\begin{center}
-\includegraphics[width=\textwidth,height=4cm,keepaspectratio]{comparacion_recursos.png}
-\end{center}
-\idea{En los tamaños compilados, QFT reduce el ancho para $N\geq4$;
-la escalera considerada requiere menos CX y menor profundidad.}
-\fuente{Misma base y conectividad para ambos diseños. Las curvas no representan tiempos ni fidelidades en hardware.}
-\end{frame}
+
 
 % 24
 \begin{frame}{Limitaciones y siguiente etapa}
@@ -702,7 +596,7 @@ la escalera considerada requiere menos CX y menor profundidad.}
 \end{itemize}
 \end{block}
 \end{columns}
-\medskip\small
+\smallskip\small
 \textbf{Lectura correcta del resultado:} una probabilidad ideal cercana a uno
 no establece una ventaja experimental en hardware.
 \fuente{Las extensiones enumeradas permanecen pendientes; no se atribuyen resultados de esos experimentos al avance.}
@@ -715,7 +609,7 @@ no establece una ventaja experimental en hardware.
 \item QFT y Toffoli implementan el \textbf{mismo operador de semisumador}, incluidas sus fases.
 \item El ahorro de qubits debe evaluarse junto con \textbf{CX, profundidad y limpieza de registros}.
 \end{enumerate}
-\medskip
+\smallskip
 \begin{block}{Cómo reproducir el avance desde la raíz del repositorio}
 \begin{lstlisting}[language={},basicstyle=\ttfamily\footnotesize,frame=none]
 .venv/bin/python -m pytest -q
@@ -731,7 +625,7 @@ make informe presentacion
 \appendix
 \section{Material de apoyo}
 % 26
-\begin{frame}{Apoyo: recursos de las cinco funciones de dos entradas}
+\begin{frame}[shrink=0]{Apoyo: recursos de las cinco funciones de dos entradas}
 \begin{columns}[c,onlytextwidth]
 \column{.51\textwidth}
 \centering\footnotesize\renewcommand{\arraystretch}{1.05}
@@ -756,30 +650,10 @@ Esta plantilla no pretende ser una síntesis mínima para cada función.
 \end{frame}
 
 % 27
-\begin{frame}{Apoyo: detalle de la validación exhaustiva}
-\begin{columns}[c,onlytextwidth]
-\column{.55\textwidth}
-\centering\small\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{@{}rlrr@{}}
-\toprule
-$N$ & Diseño & Casos & Prob. mínima\\\midrule
-\ValidationRows
-\bottomrule
-\end{tabular}
-\column{.41\textwidth}
-\begin{block}{Qué se comprueba}
-\textbf{QFT:} el peso de Hamming completo.\par\medskip
-\textbf{Toffoli:} AND de todas las entradas.\par\medskip
-\textbf{Total:} \ValidationCases{} casos multientrada.
-\end{block}
-\small Las probabilidades se muestran con seis decimales;
-las diferencias residuales son de redondeo numérico.
-\end{columns}
-\fuente{validacion.csv. Se añaden los 40 casos de las tablas de verdad de las cinco funciones de dos entradas.}
-\end{frame}
+
 
 % Las 16 referencias se leen de la misma base que el informe.
-\begin{frame}{Apoyo: cómo fundamentan el proyecto las fuentes añadidas}
+\begin{frame}[shrink=0]{Apoyo: cómo fundamentan el proyecto las fuentes añadidas}
 \small
 \begin{tabular}{@{}p{3cm}p{10.4cm}@{}}
 \toprule
