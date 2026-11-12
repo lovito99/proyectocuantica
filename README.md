@@ -136,7 +136,7 @@ exhaustivamente en el código, sin fuentes externas de datos.
 
 ## Compilar el informe e importar en Overleaf
 
-El PDF tiene **6 páginas**. Para compilar localmente se necesitan `latexmk`,
+El PDF tiene **7 páginas**. Para compilar localmente se necesitan `latexmk`,
 pdfLaTeX, BibTeX y los paquetes usuales de TeX Live (`newtx`, `babel-spanish`,
 `listings`, `IEEEtran`, entre otros):
 
@@ -154,7 +154,7 @@ En Overleaf: **New Project → Upload Project → avance_overleaf.zip**. Selecci
 ## Diapositivas de la exposición
 
 La carpeta [`ppt/`](ppt/) contiene la presentación completa en PDF, con formato
-panorámico 16:9: **25 diapositivas principales y 4 de apoyo** para una exposición
+panorámico 16:9: **25 diapositivas principales y 6 de apoyo** para una exposición
 de aproximadamente 20 minutos. Incluye fundamentos, los cuatro artículos,
 metodología, circuitos, código Qiskit, validación, recursos, limitaciones y conclusiones.
 
@@ -171,8 +171,11 @@ Se requiere TeX Live con Beamer, TikZ y listings.
 
 ## Fuentes verificadas
 
-La bibliografía incluye los cuatro artículos de la primera entrega y fundamentos
-de aritmética cuántica. Se corrigió la paginación del artículo de Clarino et al.
+La bibliografía incluye **16 referencias**: los cuatro artículos de la primera
+entrega, ocho fuentes académicas de fundamentos y síntesis y cuatro referencias
+oficiales de Qiskit. El informe y las diapositivas comparten la base BibTeX.
+La [revisión de cada fuente](informe/revision_bibliografica.md) explica su aporte,
+las verificaciones realizadas y los límites de su aplicación al proyecto. Se corrigió la paginación del artículo de Clarino et al.
 a **320–329**, conforme a su [publicación oficial](https://www.jstage.jst.go.jp/article/transinf/E108.D/4/E108.D_2024EDP7194/_article).
 
 API utilizadas:

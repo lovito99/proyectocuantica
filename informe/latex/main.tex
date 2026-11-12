@@ -172,6 +172,13 @@ reversible $U_f\ket{x}\ket{z}=\ket{x}\ket{z\oplus f(x)}$.
 También puede implementarse mediante otra permutación reversible que deje
 $f(x)$ en una línea identificada y conserve información residual en las demás.
 La familia de semisumadores de este proyecto utiliza esta segunda opción.
+Bennett fundamenta el cómputo reversible y la eliminación de información
+intermedia mediante cómputo, copia de la salida en la base computacional y
+cómputo inverso \cite{bennett1973}. La copia mediante CNOT no clona un estado
+cuántico arbitrario. Aquí los registros residuales no se limpian.
+Barenco et al. demuestran la universalidad de puertas de un qubit y CNOT,
+y estudian descomposiciones de controles múltiples \cite{barenco1995}; esto
+respalda comparar circuitos transpilados a una base común.
 
 \subsection{Transformada cuántica de Fourier}
 Para $M=2^m$, la QFT se define como
@@ -188,8 +195,11 @@ F_M^\dagger D_bF_M\ket{t}=\ket{t+b\bmod M}.
 Para $M=4$, se necesitan dos qubits en el acumulador y un control $b$.
 En Qiskit se emplea \texttt{QFTGate}, con la convención de que el qubit
 de índice menor tiene menor peso binario \cite{qftdocs}.
-La QFT también conecta con estimación de fase y con la búsqueda de períodos
-de Shor; aquí se estudia su uso en suma reversible.
+Coppersmith estudia una QFT aproximada que omite rotaciones pequeñas
+\cite{coppersmith2002}. Su informe es de 1994 y fue depositado en arXiv en
+2002. Este avance utiliza QFT exacta; una aproximación requeriría medir el
+error de la suma y no se beneficia automáticamente de las garantías para
+factorización.
 
 \section{Antecedentes y revisión dirigida}
 \subsection{Diseño lógico mediante QFT}
@@ -248,12 +258,33 @@ Hajjdiab et al. \cite{hajjdiab2024} & Minimización visual Q-Map & Compuertas y 
 \end{tabular}
 \end{table*}
 
+\subsection{Fundamentos complementarios y alcance de la comparación}
+Cuccaro et al. proponen un sumador de acarreo propagado de profundidad
+lineal que usa un único auxiliar \cite{cuccaro2004}. Su existencia impide
+interpretar el ahorro frente a nuestra escalera AND como una superioridad
+sobre toda aritmética basada en Toffoli: se trata de tareas e interfaces
+que deben igualarse antes de comparar. Ese sumador no está implementado aquí.
+
+Maslov muestra identidades que permiten usar Toffoli de fase relativa en
+configuraciones específicas sin alterar la operación completa
+\cite{maslov2016}. Esto complementa a Clarino: sustituir cada Toffoli de
+forma aislada puede introducir fases incorrectas. Se mantienen Toffoli
+exactas en la implementación y se verifican matrices completas.
+
+Shende et al. estudian síntesis de unitarias y costo CNOT, incluyendo
+restricciones de interacción entre vecinos \cite{shende2006}. Su trabajo
+respalda distinguir costo lógico de costo de compilación; aquí la
+conectividad es completa y no se ejecuta su algoritmo de síntesis.
+
 \section{Metodología e implementación}
 \subsection{Alcance y fuentes}
 Se desarrolla un estudio comparativo de simulación ideal y compilación.
 La revisión es dirigida: parte de los cuatro artículos de la entrega anterior
 y contrasta sus datos editoriales con las fuentes originales. Se complementa
-con fundamentos de computación cuántica y documentación oficial de Qiskit.
+con ocho fuentes de fundamentos y síntesis y cuatro referencias oficiales
+de Qiskit: 16 referencias en total (12 académicas y cuatro de documentación).
+Las seis fuentes añadidas fundamentan decisiones y límites del experimento;
+no se presentan como seis métodos implementados.
 No se atribuyen al proceso búsquedas exhaustivas ni cantidades de selección
 de estudios propias de una revisión sistemática no realizada.
 
@@ -505,7 +536,7 @@ la misma transformación, incluidas sus fases. El contador y la escalera
 superan además \ValidationCases{} casos exhaustivos para 2, 4 y 8 entradas.
 
 El análisis de hasta 16 entradas demuestra que el diseño QFT ofrece un ancho
-menor que la escalera considerada, pero requiere más CX y mayor profundidad
+menor que la escalera considerada para $N\geq4$, pero requiere más CX y mayor profundidad
 en las condiciones utilizadas. Por ello, este avance respalda una evaluación
 con varias métricas y no una afirmación de ventaja general de QFT.
 

@@ -57,7 +57,7 @@
   frame=single,rulecolor=\color{gris!25},breaklines=true,showstringspaces=false,
   columns=fullflexible,keepspaces=true,aboveskip=4pt,belowskip=4pt}
 \title{Circuitos cuánticos reversibles para funciones booleanas}
-\subtitle{Revisión y validación experimental en Qiskit}
+\subtitle{Revisión y validación ideal en Qiskit}
 \author{Brayan Vladymir Molocho Condori \and Haider Alex Carpio Hermoza \and Efraín Vitorino Marín}
 \institute{Escuela Profesional de Ingeniería Informática y de Sistemas · UNSAAC}
 \date{Noviembre de 2026}
@@ -85,7 +85,7 @@ ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS\par}
 \vspace{1mm}
 {\color{azul}\fontsize{16}{18}\selectfont\bfseries
 Circuitos cuánticos reversibles\par para funciones booleanas\par}
-{\fontsize{8.5}{10}\selectfont Revisión y validación experimental en Qiskit\par}
+{\fontsize{8.5}{10}\selectfont Revisión y validación ideal en Qiskit\par}
 \vspace{1mm}
 {\color{gris}\hrule height .4pt}
 \vspace{2mm}
@@ -778,42 +778,30 @@ las diferencias residuales son de redondeo numérico.
 \fuente{validacion.csv. Se añaden los 40 casos de las tablas de verdad de las cinco funciones de dos entradas.}
 \end{frame}
 
-% 28
-\begin{frame}{Referencias: los cuatro artículos del avance}
-\footnotesize
-\refpaper{[1] A. Kaltehei, M. Kurt, A. Gençten y S. Çakmak (2026).}
-{Resource-Efficient Quantum Circuit Design for Reversible Logic Implementation.}
-{Quantum Engineering, 2026, art. 9882453.}{https://doi.org/10.1155/que2/9882453}
-\refpaper{[2] D. Escanez-Exposito y P. Caballero-Gil (2026).}
-{Quantum simulation of Boolean logic, digital circuits, and cryptographic schemes.}
-{Logic Journal of the IGPL, 34(1), jzaf019.}{https://doi.org/10.1093/jigpal/jzaf019}
-\refpaper{[3] D. Clarino, N. Asada, A. Matsuo y S. Yamashita (2025).}
-{Leveraging Different Boolean Function Decompositions to Reduce T-Count in LUT-Based Quantum Circuit Synthesis.}
-{IEICE Transactions on Information and Systems, E108-D(4), 320--329.}{https://doi.org/10.1587/transinf.2024EDP7194}
-\refpaper{[4] H. Hajjdiab, A. Khalil y H. Eleuch (2024).}
-{Q-Map: quantum circuit implementation of boolean functions.}
-{Physica Scripta, 99(8), 085127.}{https://doi.org/10.1088/1402-4896/ad5c17}
+% Las 16 referencias se leen de la misma base que el informe.
+\begin{frame}{Apoyo: cómo fundamentan el proyecto las fuentes añadidas}
+\small
+\begin{tabular}{@{}p{3cm}p{10.4cm}@{}}
+\toprule
+Fuente & Aplicación y límite en este avance\\\midrule
+Bennett (1973) & Reversibilidad y descomputación; la limpieza de auxiliares queda pendiente.\\
+Barenco et al. (1995) & Universalidad de puertas de un qubit y CX; justifica una base común.\\
+Cuccaro et al. (2004) & Sumador con un auxiliar; el ahorro frente a nuestra escalera no se generaliza a todos los diseños Toffoli.\\
+Maslov (2016) & Fases relativas bajo condiciones específicas; se conservan Toffoli exactas.\\
+Shende et al. (2006) & Síntesis y costo CNOT; no se implementa su algoritmo.\\
+Coppersmith (2002) & QFT aproximada (informe de 1994); aquí se usa QFT exacta.\\
+\bottomrule
+\end{tabular}
+\fuente{Revisión dirigida: 12 fuentes académicas y cuatro referencias oficiales de API.}
 \end{frame}
 
-% 29
-\begin{frame}{Referencias: fundamentos y documentación oficial}
-\begin{block}{Fundamentos}
-\small
-\textbf{M. A. Nielsen e I. L. Chuang (2010).}
-Quantum Computation and Quantum Information: 10th Anniversary Edition.
-Cambridge University Press.\par\medskip
-\textbf{T. G. Draper (2000).} Addition on a Quantum Computer.
-\href{https://arxiv.org/abs/quant-ph/0008033}{arXiv:quant-ph/0008033}.
-\end{block}
-\begin{block}{IBM Quantum: API utilizadas}
-\small
-\begin{itemize}
-\item \href{https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.QFTGate}{QFTGate}: transformada cuántica de Fourier.
-\item \href{https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.quantum_info.Statevector}{Statevector}: simulación exacta y muestreo.
-\item \href{https://quantum.cloud.ibm.com/docs/en/api/qiskit/compiler}{transpile}: base, optimización y configuración de compilación.
-\item \href{https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.quantum_info.Operator}{Operator}: matrices y permutaciones de qubits.
-\end{itemize}
-\end{block}
-\fuente{Enlaces a fuentes originales. Consulta de la documentación: 11 de noviembre de 2026.}
+\begin{frame}[allowframebreaks]{Referencias bibliográficas (16 fuentes)}
+\scriptsize
+\setbeamertemplate{bibliography item}[text]
+\nocite{kaltehei2026,escanez2026,clarino2025,hajjdiab2024}
+\nocite{nielsen2010,draper2000,qftdocs,statedocs,compiledocs,operatordocs}
+\nocite{bennett1973,barenco1995,cuccaro2004,maslov2016,shende2006,coppersmith2002}
+\bibliographystyle{IEEEtran}
+\bibliography{../informe/latex/referencias}
 \end{frame}
 \end{document}
