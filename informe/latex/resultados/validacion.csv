@@ -1,0 +1,7 @@
+n_inputs,method,cases,min_probability
+2,QFT,4,0.9999999999999996
+2,Toffoli,4,1.0
+4,QFT,16,0.9999999999999996
+4,Toffoli,16,1.0
+8,QFT,256,0.9999999999999991
+8,Toffoli,256,1.0
